@@ -1,22 +1,18 @@
-"""Module for labelling pork rasher defects based on defect class names."""
+"""Module for deriving pass/fail status from pork rasher defect classes."""
+
+FAIL_WORTHY_DEFECTS = ["loose-meat", "twisted-meat", "unsealed", "packaging-error"]
 
 def derive_pass_fail(defect_class_names: list) -> str:
-    """Derives a 'pass' or 'fail' status based on a list of defect class names.
+    """Derives a 'pass' or 'fail' status from a list of detected defect classes.
 
     Args:
-        defect_class_names (list): A list of strings, where each string is a defect class name.
+        defect_class_names: List of defect class name strings detected in an image.
 
     Returns:
-        str: 'fail' if any fail-worthy defect is present, 'pass' otherwise.
-             'wrinkle' is considered cosmetic and does not result in a 'fail'.
-
-    Fail-worthy defects include: 'loose_meat', 'twisted_meat', 'unsealed_packaging'.
+        'fail' if any fail-worthy defect is present, 'pass' otherwise.
+        'wrinkle' is treated as cosmetic-only and does not cause a fail on its own.
     """
-    fail_worthy_defects = ['loose_meat', 'twisted_meat', 'unsealed_packaging']
-
     for defect in defect_class_names:
-        if defect in fail_worthy_defects:
-            return 'fail'
-
-    return 'pass'
-
+        if defect in FAIL_WORTHY_DEFECTS:
+            return "fail"
+    return "pass"

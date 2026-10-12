@@ -45,6 +45,6 @@ Generated API documentation for `src/` is in `docs/` — open `docs/src.html` (o
 
 This project used AI assistance (Claude and Gemini) throughout development, in line with the unit's AI-use policy. AI was used for: planning project scope and the report structure; drafting and debugging the evaluation pipeline and pytest tests; reasoning through Roboflow configuration decisions (resize mode, architecture selection); and assisting with GitHub/Colab workflow debugging.
 
-All AI-generated code and content was reviewed, tested, and verified before being incorporated — including cross-checking training metrics directly against Roboflow's own reporting, and independently diagnosing bugs (e.g. a class-name mismatch between the labelling rule and the real dataset classes) that AI-generated code did not itself catch. A detailed, dated log of AI use is kept in `ai_use_log.md`.
+All AI-generated code and content was reviewed, tested, and verified before being incorporated including cross-checking training metrics directly against Roboflow's own reporting, and independently diagnosing bugs (e.g. a class name mismatch between the labelling rule and the real dataset classes) that AI-generated code did not itself catch. A detailed, dated log of AI use is kept in `ai_use_log.md`.
 
 Final project framing, architecture selection, the pass/fail labelling rule, threshold selection, and interpretation of results remained the author's own decisions throughout.

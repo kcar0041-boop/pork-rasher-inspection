@@ -4,9 +4,3 @@ data/
 __pycache__/
 *.pyc
 .pytest_cache/
-
-data/
-*.pt
-.env
-__pycache__/
-*.pyc

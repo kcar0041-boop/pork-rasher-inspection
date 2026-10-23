@@ -10,20 +10,20 @@ from src.labelling import derive_pass_fail
 
 def test_aggregate_detections_filters_by_confidence():
     predictions = [
-        {"class": "loose_meat", "confidence": 0.85},
+        {"class": "loose-meat", "confidence": 0.85},
         {"class": "wrinkle", "confidence": 0.30},
     ]
     result = aggregate_detections_to_classes(predictions, confidence_threshold=50)
-    assert result == ["loose_meat"]
+    assert result == ["loose-meat"]
 
 
 def test_pass_fail_decision_fail_case():
-    predictions = [{"class": "twisted_meat", "confidence": 0.90}]
+    predictions = [{"class": "twisted-meat", "confidence": 0.90}]
     assert pass_fail_decision(predictions, 50, derive_pass_fail) == "fail"
 
 
 def test_pass_fail_decision_pass_case_low_confidence():
-    predictions = [{"class": "twisted_meat", "confidence": 0.20}]
+    predictions = [{"class": "twisted-meat", "confidence": 0.20}]
     assert pass_fail_decision(predictions, 50, derive_pass_fail) == "pass"
 
 
@@ -38,9 +38,9 @@ def test_compute_confusion_counts_basic():
 
 def test_threshold_sweep_runs_across_thresholds():
     all_predictions = [
-        [{"class": "loose_meat", "confidence": 0.90}],
+        [{"class": "loose-meat", "confidence": 0.90}],
         [{"class": "wrinkle", "confidence": 0.90}],
     ]
-    all_ground_truths = [["loose_meat"], ["wrinkle"]]
+    all_ground_truths = [["loose-meat"], ["wrinkle"]]
     results = threshold_sweep(all_predictions, all_ground_truths, derive_pass_fail, thresholds=[10, 50, 95])
     assert len(results) == 3

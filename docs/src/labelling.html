@@ -31,6 +31,9 @@
             <h2>API Documentation</h2>
                 <ul class="memberlist">
             <li>
+                    <a class="variable" href="#FAIL_WORTHY_DEFECTS">FAIL_WORTHY_DEFECTS</a>
+            </li>
+            <li>
                     <a class="function" href="#derive_pass_fail">derive_pass_fail</a>
             </li>
     </ul>
@@ -49,38 +52,47 @@
                     <h1 class="modulename">
 <a href="./../src.html">src</a><wbr>.labelling    </h1>
 
-                        <div class="docstring"><p>Module for labelling pork rasher defects based on defect class names.</p>
+                        <div class="docstring"><p>Module for deriving pass/fail status from pork rasher defect classes.</p>
 </div>
 
                         <input id="mod-labelling-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 
                         <label class="view-source-button" for="mod-labelling-view-source"><span>View Source</span></label>
 
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="sd">"""Module for labelling pork rasher defects based on defect class names."""</span>
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="sd">"""Module for deriving pass/fail status from pork rasher defect classes."""</span>
 </span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="k">def</span><span class="w"> </span><span class="nf">derive_pass_fail</span><span class="p">(</span><span class="n">defect_class_names</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="w">    </span><span class="sd">"""Derives a 'pass' or 'fail' status based on a list of defect class names.</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="sd">    Args:</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="sd">        defect_class_names (list): A list of strings, where each string is a defect class name.</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">    Returns:</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="sd">        str: 'fail' if any fail-worthy defect is present, 'pass' otherwise.</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">             'wrinkle' is considered cosmetic and does not result in a 'fail'.</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">    Fail-worthy defects include: 'loose_meat', 'twisted_meat', 'unsealed_packaging'.</span>
+</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="n">FAIL_WORTHY_DEFECTS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"loose-meat"</span><span class="p">,</span> <span class="s2">"twisted-meat"</span><span class="p">,</span> <span class="s2">"unsealed"</span><span class="p">,</span> <span class="s2">"packaging-error"</span><span class="p">]</span>
+</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="k">def</span><span class="w"> </span><span class="nf">derive_pass_fail</span><span class="p">(</span><span class="n">defect_class_names</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">"""Derives a 'pass' or 'fail' status from a list of detected defect classes.</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">    Args:</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">        defect_class_names: List of defect class name strings detected in an image.</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">    Returns:</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="sd">        'fail' if any fail-worthy defect is present, 'pass' otherwise.</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">        'wrinkle' is treated as cosmetic-only and does not cause a fail on its own.</span>
 </span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">    """</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>    <span class="n">fail_worthy_defects</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'loose_meat'</span><span class="p">,</span> <span class="s1">'twisted_meat'</span><span class="p">,</span> <span class="s1">'unsealed_packaging'</span><span class="p">]</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>    <span class="k">for</span> <span class="n">defect</span> <span class="ow">in</span> <span class="n">defect_class_names</span><span class="p">:</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>        <span class="k">if</span> <span class="n">defect</span> <span class="ow">in</span> <span class="n">fail_worthy_defects</span><span class="p">:</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>            <span class="k">return</span> <span class="s1">'fail'</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="k">return</span> <span class="s1">'pass'</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>    <span class="k">for</span> <span class="n">defect</span> <span class="ow">in</span> <span class="n">defect_class_names</span><span class="p">:</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>        <span class="k">if</span> <span class="n">defect</span> <span class="ow">in</span> <span class="n">FAIL_WORTHY_DEFECTS</span><span class="p">:</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>            <span class="k">return</span> <span class="s2">"fail"</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="k">return</span> <span class="s2">"pass"</span>
 </span></pre></div>
 
 
             </section>
+                <section id="FAIL_WORTHY_DEFECTS">
+                    <div class="attr variable">
+            <span class="name">FAIL_WORTHY_DEFECTS</span>        =
+<span class="default_value">[&#39;loose-meat&#39;, &#39;twisted-meat&#39;, &#39;unsealed&#39;, &#39;packaging-error&#39;]</span>
+
+        
+    </div>
+    <a class="headerlink" href="#FAIL_WORTHY_DEFECTS"></a>
+    
+    
+
+                </section>
                 <section id="derive_pass_fail">
                             <input id="derive_pass_fail-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
@@ -92,38 +104,31 @@
 
     </div>
     <a class="headerlink" href="#derive_pass_fail"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="derive_pass_fail-4"><a href="#derive_pass_fail-4"><span class="linenos"> 4</span></a><span class="k">def</span><span class="w"> </span><span class="nf">derive_pass_fail</span><span class="p">(</span><span class="n">defect_class_names</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="derive_pass_fail-5"><a href="#derive_pass_fail-5"><span class="linenos"> 5</span></a><span class="w">    </span><span class="sd">"""Derives a 'pass' or 'fail' status based on a list of defect class names.</span>
-</span><span id="derive_pass_fail-6"><a href="#derive_pass_fail-6"><span class="linenos"> 6</span></a>
-</span><span id="derive_pass_fail-7"><a href="#derive_pass_fail-7"><span class="linenos"> 7</span></a><span class="sd">    Args:</span>
-</span><span id="derive_pass_fail-8"><a href="#derive_pass_fail-8"><span class="linenos"> 8</span></a><span class="sd">        defect_class_names (list): A list of strings, where each string is a defect class name.</span>
-</span><span id="derive_pass_fail-9"><a href="#derive_pass_fail-9"><span class="linenos"> 9</span></a>
-</span><span id="derive_pass_fail-10"><a href="#derive_pass_fail-10"><span class="linenos">10</span></a><span class="sd">    Returns:</span>
-</span><span id="derive_pass_fail-11"><a href="#derive_pass_fail-11"><span class="linenos">11</span></a><span class="sd">        str: 'fail' if any fail-worthy defect is present, 'pass' otherwise.</span>
-</span><span id="derive_pass_fail-12"><a href="#derive_pass_fail-12"><span class="linenos">12</span></a><span class="sd">             'wrinkle' is considered cosmetic and does not result in a 'fail'.</span>
-</span><span id="derive_pass_fail-13"><a href="#derive_pass_fail-13"><span class="linenos">13</span></a>
-</span><span id="derive_pass_fail-14"><a href="#derive_pass_fail-14"><span class="linenos">14</span></a><span class="sd">    Fail-worthy defects include: 'loose_meat', 'twisted_meat', 'unsealed_packaging'.</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="derive_pass_fail-6"><a href="#derive_pass_fail-6"><span class="linenos"> 6</span></a><span class="k">def</span><span class="w"> </span><span class="nf">derive_pass_fail</span><span class="p">(</span><span class="n">defect_class_names</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="derive_pass_fail-7"><a href="#derive_pass_fail-7"><span class="linenos"> 7</span></a><span class="w">    </span><span class="sd">"""Derives a 'pass' or 'fail' status from a list of detected defect classes.</span>
+</span><span id="derive_pass_fail-8"><a href="#derive_pass_fail-8"><span class="linenos"> 8</span></a>
+</span><span id="derive_pass_fail-9"><a href="#derive_pass_fail-9"><span class="linenos"> 9</span></a><span class="sd">    Args:</span>
+</span><span id="derive_pass_fail-10"><a href="#derive_pass_fail-10"><span class="linenos">10</span></a><span class="sd">        defect_class_names: List of defect class name strings detected in an image.</span>
+</span><span id="derive_pass_fail-11"><a href="#derive_pass_fail-11"><span class="linenos">11</span></a>
+</span><span id="derive_pass_fail-12"><a href="#derive_pass_fail-12"><span class="linenos">12</span></a><span class="sd">    Returns:</span>
+</span><span id="derive_pass_fail-13"><a href="#derive_pass_fail-13"><span class="linenos">13</span></a><span class="sd">        'fail' if any fail-worthy defect is present, 'pass' otherwise.</span>
+</span><span id="derive_pass_fail-14"><a href="#derive_pass_fail-14"><span class="linenos">14</span></a><span class="sd">        'wrinkle' is treated as cosmetic-only and does not cause a fail on its own.</span>
 </span><span id="derive_pass_fail-15"><a href="#derive_pass_fail-15"><span class="linenos">15</span></a><span class="sd">    """</span>
-</span><span id="derive_pass_fail-16"><a href="#derive_pass_fail-16"><span class="linenos">16</span></a>    <span class="n">fail_worthy_defects</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'loose_meat'</span><span class="p">,</span> <span class="s1">'twisted_meat'</span><span class="p">,</span> <span class="s1">'unsealed_packaging'</span><span class="p">]</span>
-</span><span id="derive_pass_fail-17"><a href="#derive_pass_fail-17"><span class="linenos">17</span></a>
-</span><span id="derive_pass_fail-18"><a href="#derive_pass_fail-18"><span class="linenos">18</span></a>    <span class="k">for</span> <span class="n">defect</span> <span class="ow">in</span> <span class="n">defect_class_names</span><span class="p">:</span>
-</span><span id="derive_pass_fail-19"><a href="#derive_pass_fail-19"><span class="linenos">19</span></a>        <span class="k">if</span> <span class="n">defect</span> <span class="ow">in</span> <span class="n">fail_worthy_defects</span><span class="p">:</span>
-</span><span id="derive_pass_fail-20"><a href="#derive_pass_fail-20"><span class="linenos">20</span></a>            <span class="k">return</span> <span class="s1">'fail'</span>
-</span><span id="derive_pass_fail-21"><a href="#derive_pass_fail-21"><span class="linenos">21</span></a>
-</span><span id="derive_pass_fail-22"><a href="#derive_pass_fail-22"><span class="linenos">22</span></a>    <span class="k">return</span> <span class="s1">'pass'</span>
+</span><span id="derive_pass_fail-16"><a href="#derive_pass_fail-16"><span class="linenos">16</span></a>    <span class="k">for</span> <span class="n">defect</span> <span class="ow">in</span> <span class="n">defect_class_names</span><span class="p">:</span>
+</span><span id="derive_pass_fail-17"><a href="#derive_pass_fail-17"><span class="linenos">17</span></a>        <span class="k">if</span> <span class="n">defect</span> <span class="ow">in</span> <span class="n">FAIL_WORTHY_DEFECTS</span><span class="p">:</span>
+</span><span id="derive_pass_fail-18"><a href="#derive_pass_fail-18"><span class="linenos">18</span></a>            <span class="k">return</span> <span class="s2">"fail"</span>
+</span><span id="derive_pass_fail-19"><a href="#derive_pass_fail-19"><span class="linenos">19</span></a>    <span class="k">return</span> <span class="s2">"pass"</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Derives a 'pass' or 'fail' status based on a list of defect class names.</p>
+            <div class="docstring"><p>Derives a 'pass' or 'fail' status from a list of detected defect classes.</p>
 
 <p>Args:
-    defect_class_names (list): A list of strings, where each string is a defect class name.</p>
+    defect_class_names: List of defect class name strings detected in an image.</p>
 
 <p>Returns:
-    str: 'fail' if any fail-worthy defect is present, 'pass' otherwise.
-         'wrinkle' is considered cosmetic and does not result in a 'fail'.</p>
-
-<p>Fail-worthy defects include: 'loose_meat', 'twisted_meat', 'unsealed_packaging'.</p>
+    'fail' if any fail-worthy defect is present, 'pass' otherwise.
+    'wrinkle' is treated as cosmetic-only and does not cause a fail on its own.</p>
 </div>
 
 

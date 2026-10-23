@@ -1,29 +1,22 @@
+"""Download the pork rasher dataset from Roboflow."""
 import os
 from roboflow import Roboflow
 
-def download_dataset(workspace: str = "your-workspace", project: str = "your-project", version: int = 1) -> str:
-    """Downloads a dataset from Roboflow using the Roboflow Python SDK.
+
+def download_dataset(api_key: str, workspace: str, project_name: str, version: int, format: str = "yolov11"):
+    """Downloads the project dataset from Roboflow into the local data/ folder.
 
     Args:
-        workspace (str): The Roboflow workspace ID.
-        project (str): The Roboflow project ID.
-        version (int): The dataset version number.
+        api_key: Roboflow private API key.
+        workspace: Roboflow workspace ID.
+        project_name: Roboflow project ID.
+        version: Dataset version number.
+        format: Export format for the dataset.
 
     Returns:
-        str: The path to the downloaded dataset directory.
-
-    Raises:
-        ValueError: If the ROBOCFLOW_API_KEY environment variable is not set.
+        Path to the downloaded dataset directory.
     """
-    api_key = os.environ.get("ROBOFLOW_API_KEY")
-    if not api_key:
-        raise ValueError("ROBOFLOW_API_KEY environment variable not set. Please add your Roboflow API key to Colab Secrets or environment.")
-
     rf = Roboflow(api_key=api_key)
-    proj = rf.workspace(workspace).project(project)
-    dataset = proj.version(version).download("yolov8") # Example format, adjust as needed
+    project = rf.workspace(workspace).project(project_name)
+    dataset = project.version(version).download(format, location="data/")
     return dataset.location
-
-if __name__ == '__main__':
-    print("This script provides a function to download data from Roboflow.")
-    print("Run `download_dataset()` with your specific workspace, project, and version.")

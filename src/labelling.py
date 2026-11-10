@@ -1,6 +1,6 @@
 """Module for deriving pass/fail status from pork rasher defect classes."""
 
-FAIL_WORTHY_DEFECTS = ["loose-meat", "twisted-meat", "unsealed", "packaging-error"]
+FAIL_WORTHY_DEFECTS = ["loose_meat", "twisted_meat", "unsealed_packaging"]
 
 
 def derive_pass_fail(defect_class_names: list) -> str:

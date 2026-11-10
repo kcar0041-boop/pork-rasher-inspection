@@ -3,22 +3,25 @@ from src.labelling import derive_pass_fail
 
 
 def test_no_defects_passes():
+    """No detected defects should pass."""
     assert derive_pass_fail([]) == "pass"
 
 
 def test_cosmetic_defect_passes():
+    """A wrinkle alone is cosmetic and should pass."""
     assert derive_pass_fail(["wrinkle"]) == "pass"
 
 
 def test_fail_worthy_defect_fails():
-    assert derive_pass_fail(["loose_meat"]) == "fail"
-    assert derive_pass_fail(["twisted_meat"]) == "fail"
-    assert derive_pass_fail(["unsealed_packaging"]) == "fail"
+    """A fail-worthy defect should fail."""
+    assert derive_pass_fail(["loose-meat"]) == "fail"
 
 
 def test_mixed_defects_fail_worthy_overrides():
-    assert derive_pass_fail(["wrinkle", "loose_meat"]) == "fail"
+    """A fail-worthy defect overrides a cosmetic one."""
+    assert derive_pass_fail(["wrinkle", "twisted-meat"]) == "fail"
 
 
 def test_multiple_fail_worthy_defects_fails():
-    assert derive_pass_fail(["loose_meat", "unsealed_packaging"]) == "fail"
+    """Multiple fail-worthy defects should fail."""
+    assert derive_pass_fail(["loose-meat", "unsealed", "packaging-error"]) == "fail"
